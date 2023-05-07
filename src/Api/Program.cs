@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Project.Api
 {
-    public class Project
+    public class Program
     {
         public static void Main(string[] args)
         {            
