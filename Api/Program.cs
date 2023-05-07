@@ -1,6 +1,4 @@
-using Project.Api;
-
-namespace Pronect.Api
+namespace Project.Api
 {
     public class Project
     {
