@@ -1,8 +1,15 @@
+using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Project.Api.Helpers;
+using Project.Application;
 
 namespace Project.Api
 {
@@ -18,6 +25,8 @@ namespace Project.Api
         // This method gets called by the runtime. Use this method to add serices to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AddMediatr(services);
+
             services.AddControllers();
             
             services.AddEndpointsApiExplorer();
@@ -42,6 +51,22 @@ namespace Project.Api
                 x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
 
             app.UseAuthorization();
+        }
+
+        public void AddMediatr(IServiceCollection services)
+        {
+            var applicationAssembly = Assembly.GetAssembly(typeof(ApplicationAssemblyRef));
+
+            services.AddValidatorsFromAssemblies(new List<Assembly>
+                {
+                    applicationAssembly
+                });
+
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            services.AddMediatR(applicationAssembly );
         }
     }
 }
