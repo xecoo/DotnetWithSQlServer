@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Project.Domain.Product
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepositoryAsync<Product>
     {
-        Task<Product> GetAll();
-        Task<Product> GetById(int id);
-        
+        Task<List<Product>> GetAllAsync();
+        Task<Product> GetByIdAsync(int id);
     }
 }

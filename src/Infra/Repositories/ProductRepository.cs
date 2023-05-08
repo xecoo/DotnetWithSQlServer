@@ -1,18 +1,29 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Project.Domain.Product;
+using Project.Infra.Data;
 
 namespace Project.Infra.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : RepositoryAsync<Product>, IProductRepository
     {
-        public Task<Product> GetAll()
+        public ProductRepository(
+            ProductDbContext context) 
+            : base(context)
+        {}
+
+        public async Task<List<Product>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            return await _dbSet.ToListAsync();
         }
 
-        public Task<Product> GetById(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await _dbSet
+                        .Where(x => x.Id == id)
+                        .FirstAsync();
         }
     }
 }
