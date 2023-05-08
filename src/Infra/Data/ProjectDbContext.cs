@@ -1,8 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Project.Domain.Product;
+
 namespace Project.Infra.Data
 {
-    public class ProjectDbContext : DbContext
+    public class ProductDbContext : DbContext
     {
-        public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options) { }
+        public ProductDbContext(DbContextOptions<ProductDbContext> options)
+            : base(options) { }
 
         public DbSet<Product> Products { get; set; }
 
