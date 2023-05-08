@@ -2,12 +2,11 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Project.Application.UseCases.GetProducts;
-using Project.Infra.Data;
 
 namespace Project.Api.Controllers
 {
     [ApiController]
-    [Route("api/")]
+    [Route("api")]
     public class ProductsController : ControllerBase
     {
         [HttpGet]

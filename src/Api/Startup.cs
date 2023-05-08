@@ -63,6 +63,11 @@ namespace Project.Api
                 x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
 
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
 
         public void AddMediatr(IServiceCollection services)
