@@ -33,11 +33,9 @@ namespace Project.Api
             var sqlServerConnection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<ProductDbContext>(
-                options => options.UseSqlServer(sqlServerConnection, b => b.MigrationsAssembly("Api")));
+                options => options.UseSqlServer(sqlServerConnection, b => b.MigrationsAssembly("Api")));            
 
-            AddMediatr(services);
-
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddEndpointsApiExplorer();
 
@@ -47,6 +45,8 @@ namespace Project.Api
             });
 
             services.AddRazorPages();
+
+            AddMediatr(services);
 
             services.AddTransient<IProductRepository, ProductRepository>();
         }
